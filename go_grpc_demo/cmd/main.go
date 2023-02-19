@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
-	err := server.RunServer()
+	port := "8099"
+	err := server.RunServer(port)
 	fmt.Println(err.Error())
 }

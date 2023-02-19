@@ -16,7 +16,7 @@ type Config struct {
 	DataStoreDBSchema   string
 }
 
-func RunServer() error {
+func RunServer(port string) error {
 	ctx := context.Background()
 	//var cfg Config
 
@@ -26,5 +26,5 @@ func RunServer() error {
 		return fmt.Errorf("create database error: %v", err)
 	}
 	v1API := v1.NewToDoServiceServer(db)
-	return server.RunServer(ctx, v1API, "8099")
+	return server.RunServer(ctx, v1API, port)
 }
