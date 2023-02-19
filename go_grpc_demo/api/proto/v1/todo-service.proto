@@ -1,7 +1,9 @@
 syntax="proto3";
 option go_package="./;v1";
 package v1;
+
 import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
 
 message ToDo{
         int64 id=1;
@@ -59,8 +61,17 @@ message ReadAllResponse{
 }
 
 service ToDoService{
-        rpc Create(CreateRequest) returns (CreateResponse);
-        rpc Read(ReadRequest) returns (ReadResponse);
+        rpc Create(CreateRequest) returns (CreateResponse) {
+                option (google.api.http) = {
+                        post: "/v1/todos"
+                        body: "*"
+                };
+        };
+        rpc Read(ReadRequest) returns (ReadResponse) {
+                option (google.api.http) = {
+                        get: "/v1/todos/{id}"
+                };
+        };
         rpc Update(UpdateRequest) returns (UpdateResponse);
         rpc Delete(DeleteRequest) returns (DeleteResponse);
         rpc ReadAll(ReadAllRequest) returns (ReadAllResponse);
